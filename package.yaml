@@ -1,0 +1,11 @@
+---
+name: oom
+
+library:
+  source-dirs: library
+  dependencies:
+    - aeson
+    - base
+    - bytestring
+    - text
+    - time
