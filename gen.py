@@ -84,12 +84,12 @@ def merge(xs, ys):
     names = {stage['name'] for stage in xs}
 
     skipped = []
+    unknown = []
     pool = list(reversed(ys))
 
     for x in xs:
         name = x['name']
         y = empty
-
         while pool:
             candidate = pool.pop()
 
@@ -102,7 +102,7 @@ def merge(xs, ys):
                 skipped.append(candidate)
             # xs doesn't have this name at all
             else:
-                out.append(candidate)
+                unknown.append(candidate)
 
         while skipped:
             pool.append(skipped.pop())
@@ -112,6 +112,9 @@ def merge(xs, ys):
             time=x['time'] + y['time'],
             alloc=x['alloc'] + y['alloc']
         ))
+
+    for u in unknown:
+        out.append(u)
 
     return out
 
@@ -172,7 +175,7 @@ def compare(noDerivingVia, derivingVia):
                 name=name,
                 oldTime=old['time'],
                 newTime=None,
-                diff=None,
+                diffTime=None,
                 oldAlloc=old['alloc'],
                 newAlloc=None,
                 diffAlloc=None
@@ -203,7 +206,8 @@ def table(**kwargs):
     for row in rows:
         newRow = {}
         for key in kwargs:
-            newRow[key] = kwargs[key].format(row[key])
+            value = row[key]
+            newRow[key] = 'N/A' if value is None else kwargs[key].format(value)
         formatted.append(newRow)
 
     for key in kwargs:
