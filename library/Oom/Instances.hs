@@ -188,35 +188,35 @@ newtype QuestionId = QuestionId { unQuestionId :: Int }
 
 #ifdef USE_DERIVING_VIA
 
-deriving via (Codec (Drop "district") District) instance (ToJSON District)
-deriving via (Codec (Drop "district") District) instance (FromJSON District)
+deriving via (ApiOptions ('Just "district") District) instance (ToJSON District)
+deriving via (ApiOptions ('Just "district") District) instance (FromJSON District)
 
-deriving via (Codec (Drop "school") School) instance (ToJSON School)
-deriving via (Codec (Drop "school") School) instance (FromJSON School)
+deriving via (ApiOptions ('Just "school") School) instance (ToJSON School)
+deriving via (ApiOptions ('Just "school") School) instance (FromJSON School)
 
-deriving via (Codec (Drop "teacher") Teacher) instance (ToJSON Teacher)
-deriving via (Codec (Drop "teacher") Teacher) instance (FromJSON Teacher)
+deriving via (ApiOptions ('Just "teacher") Teacher) instance (ToJSON Teacher)
+deriving via (ApiOptions ('Just "teacher") Teacher) instance (FromJSON Teacher)
 
-deriving via (Codec (Drop "course") Course) instance (ToJSON Course)
-deriving via (Codec (Drop "course") Course) instance (FromJSON Course)
+deriving via (ApiOptions ('Just "course") Course) instance (ToJSON Course)
+deriving via (ApiOptions ('Just "course") Course) instance (FromJSON Course)
 
-deriving via (Codec (Drop "membership") Membership) instance (ToJSON Membership)
-deriving via (Codec (Drop "membership") Membership) instance (FromJSON Membership)
+deriving via (ApiOptions ('Just "membership") Membership) instance (ToJSON Membership)
+deriving via (ApiOptions ('Just "membership") Membership) instance (FromJSON Membership)
 
-deriving via (Codec (Drop "student") Student) instance (ToJSON Student)
-deriving via (Codec (Drop "student") Student) instance (FromJSON Student)
+deriving via (ApiOptions ('Just "student") Student) instance (ToJSON Student)
+deriving via (ApiOptions ('Just "student") Student) instance (FromJSON Student)
 
-deriving via (Codec (Drop "assignment") Assignment) instance (ToJSON Assignment)
-deriving via (Codec (Drop "assignment") Assignment) instance (FromJSON Assignment)
+deriving via (ApiOptions ('Just "assignment") Assignment) instance (ToJSON Assignment)
+deriving via (ApiOptions ('Just "assignment") Assignment) instance (FromJSON Assignment)
 
-deriving via (Codec (Drop "session") Session) instance (ToJSON Session)
-deriving via (Codec (Drop "session") Session) instance (FromJSON Session)
+deriving via (ApiOptions ('Just "session") Session) instance (ToJSON Session)
+deriving via (ApiOptions ('Just "session") Session) instance (FromJSON Session)
 
-deriving via (Codec (Drop "answer") Answer) instance (ToJSON Answer)
-deriving via (Codec (Drop "answer") Answer) instance (FromJSON Answer)
+deriving via (ApiOptions ('Just "answer") Answer) instance (ToJSON Answer)
+deriving via (ApiOptions ('Just "answer") Answer) instance (FromJSON Answer)
 
-deriving via (Codec (Drop "question") Question) instance (ToJSON Question)
-deriving via (Codec (Drop "question") Question) instance (FromJSON Question)
+deriving via (ApiOptions ('Just "question") Question) instance (ToJSON Question)
+deriving via (ApiOptions ('Just "question") Question) instance (FromJSON Question)
 
 #else
 

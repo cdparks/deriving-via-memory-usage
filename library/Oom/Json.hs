@@ -1,4 +1,5 @@
 {-# LANGUAGE AllowAmbiguousTypes #-}
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE NoStarIsType #-}
@@ -8,8 +9,11 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Oom.Json
-  ( Codec(..)
-  , Drop
+  (
+  -- Create To/FromJSON instances with -XDerivingVia
+    ApiOptions(..)
+
+  -- Create To/FromJSON instances manually
   , apiOptions
 
   -- Re-exports
@@ -24,7 +28,6 @@ where
 import Prelude
 
 import Data.Aeson
-import Data.Aeson.Types
 import qualified Data.Char as C
 import Data.Kind (Type)
 import Data.List (isPrefixOf)
@@ -58,35 +61,42 @@ apiOptions mPrefix = defaultOptions
 --     , personAge :: Natural
 --     }
 --     deriving stock (Generic)
---     deriving via (Codec (Drop "person") Person) (ToJSON, FromJSON)
+--     deriving via (ApiOptions (Drop "person") Person) (ToJSON, FromJSON)
 --
-newtype Codec (tag :: k) (value :: Type) = Codec { unCodec :: value }
+newtype ApiOptions (prefix :: Maybe Symbol) (value :: Type) = ApiOptions { unApiOptions :: value }
 
--- | Used to specify field prefix to drop
-data Drop something
+instance (GToEncoding Zero (Rep a), GToJSON Zero (Rep a), Generic a, ModifyOptions prefix) => ToJSON (ApiOptions prefix a) where
+  toJSON = genericToJSON (modifyOptions @prefix defaultOptions) . unApiOptions
+  toEncoding =
+    genericToEncoding (modifyOptions @prefix defaultOptions) . unApiOptions
 
-instance (GToEncoding Zero (Rep a), GToJSON Zero (Rep a), Generic a, ModifyOptions tag) => ToJSON (Codec tag a) where
-  toJSON = genericToJSON (modifyOptions @tag defaultOptions) . unCodec
-  toEncoding = genericToEncoding (modifyOptions @tag defaultOptions) . unCodec
-
-instance (GFromJSON Zero (Rep a), Generic a, ModifyOptions tag) => FromJSON (Codec tag a) where
+instance (GFromJSON Zero (Rep a), Generic a, ModifyOptions prefix) => FromJSON (ApiOptions prefix a) where
   parseJSON =
-    (Codec <$>) . genericParseJSON (modifyOptions @tag defaultOptions)
+    (ApiOptions <$>) . genericParseJSON (modifyOptions @prefix defaultOptions)
 
-class ModifyOptions tag where
+class ModifyOptions (prefix :: Maybe Symbol) where
   modifyOptions :: Options -> Options
 
-instance (KnownSymbol symbol) => ModifyOptions (Drop symbol) where
+instance ModifyOptions 'Nothing where
   modifyOptions options = options
-    { fieldLabelModifier =
+    { constructorTagModifier =
+      snakeCaseify . unCapitalize . constructorTagModifier options
+    , fieldLabelModifier = unCapitalize . fieldLabelModifier options
+    }
+
+instance (KnownSymbol symbol) => ModifyOptions ('Just symbol) where
+  modifyOptions options = options
+    { constructorTagModifier =
       snakeCaseify
       . unCapitalize
+
       . dropPrefix prefix
-      . fieldLabelModifier options
-    , constructorTagModifier =
-      unCapitalize . dropPrefix prefix . constructorTagModifier options
+      . constructorTagModifier options
+    , fieldLabelModifier =
+      unCapitalize . dropPrefix prefix . fieldLabelModifier options
     }
     where prefix = symbolVal $ Proxy @symbol
+
 -- | Lower-case leading character
 --
 -- >>> unCapitalize "Capped"
