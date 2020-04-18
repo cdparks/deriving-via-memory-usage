@@ -28,6 +28,39 @@
   Productivity  19.1% of total user, 59.4% of total elapsed
 ```
 
+## -XNoDerivingVia GC Stats with -h
+
+```plaintext
+  65,263,743,936 bytes allocated in the heap
+ 241,523,316,616 bytes copied during GC
+   1,093,642,496 bytes maximum residency (435 sample(s))
+      10,806,584 bytes maximum slop
+            1042 MB total memory in use (0 MB lost due to fragmentation)
+
+                                     Tot time (elapsed)  Avg pause  Max pause
+  Gen  0      2229 colls,  2192 par   142.943s  23.194s     0.0104s    0.1554s
+  Gen  1       435 colls,   430 par   1997.415s  172.001s     0.3954s    0.8719s
+
+  Parallel GC work balance: 95.49% (serial 0%, perfect 100%)
+
+  TASKS: 38 (1 bound, 37 peak workers (37 total), using -N12)
+
+  SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)
+
+  INIT    time    0.000s  (  0.001s elapsed)
+  MUT     time   45.510s  ( 42.142s elapsed)
+  GC      time  2140.358s  (195.195s elapsed)
+  EXIT    time    0.004s  (  0.003s elapsed)
+  Total   time  2185.872s  (237.340s elapsed)
+
+  Alloc rate    1,434,044,786 bytes per MUT second
+
+  Productivity   2.1% of total user, 17.8% of total elapsed
+```
+
+![no-deriving-via-heap.png](images/no-deriving-via-heap.png)
+
+
 ## -XDerivingVia GC Stats
 
 ```plaintext
@@ -88,7 +121,7 @@
   Productivity   1.5% of total user, 13.2% of total elapsed
 ```
 
-![heap.png](images/heap.png)
+![deriving-via-heap.png](images/deriving-via-heap.png)
 
 ## Time
 
