@@ -31,31 +31,31 @@
 ## -XNoDerivingVia GC Stats with -h
 
 ```plaintext
-  65,263,743,936 bytes allocated in the heap
- 241,523,316,616 bytes copied during GC
-   1,093,642,496 bytes maximum residency (435 sample(s))
-      10,806,584 bytes maximum slop
-            1042 MB total memory in use (0 MB lost due to fragmentation)
+  63,538,981,352 bytes allocated in the heap
+  56,949,032,704 bytes copied during GC
+     424,328,720 bytes maximum residency (290 sample(s))
+       6,232,664 bytes maximum slop
+             404 MB total memory in use (0 MB lost due to fragmentation)
 
                                      Tot time (elapsed)  Avg pause  Max pause
-  Gen  0      2229 colls,  2192 par   142.943s  23.194s     0.0104s    0.1554s
-  Gen  1       435 colls,   430 par   1997.415s  172.001s     0.3954s    0.8719s
+  Gen  0      3312 colls,  3258 par   134.241s  20.660s     0.0062s    0.0528s
+  Gen  1       290 colls,   285 par   432.273s  37.178s     0.1282s    0.3101s
 
-  Parallel GC work balance: 95.49% (serial 0%, perfect 100%)
+  Parallel GC work balance: 86.77% (serial 0%, perfect 100%)
 
   TASKS: 38 (1 bound, 37 peak workers (37 total), using -N12)
 
   SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)
 
-  INIT    time    0.000s  (  0.001s elapsed)
-  MUT     time   45.510s  ( 42.142s elapsed)
-  GC      time  2140.358s  (195.195s elapsed)
-  EXIT    time    0.004s  (  0.003s elapsed)
-  Total   time  2185.872s  (237.340s elapsed)
+  INIT    time    0.000s  (  0.000s elapsed)
+  MUT     time   46.477s  ( 29.158s elapsed)
+  GC      time  566.515s  ( 57.838s elapsed)
+  EXIT    time    0.003s  (  0.004s elapsed)
+  Total   time  612.995s  ( 87.000s elapsed)
 
-  Alloc rate    1,434,044,786 bytes per MUT second
+  Alloc rate    1,367,096,849 bytes per MUT second
 
-  Productivity   2.1% of total user, 17.8% of total elapsed
+  Productivity   7.6% of total user, 33.5% of total elapsed
 ```
 
 ![no-deriving-via-heap.png](images/no-deriving-via-heap.png)
@@ -94,31 +94,31 @@
 ## -XDerivingVia GC Stats with -h
 
 ```plaintext
-  98,836,106,608 bytes allocated in the heap
- 505,964,462,096 bytes copied during GC
-   1,685,746,768 bytes maximum residency (628 sample(s))
-      14,393,736 bytes maximum slop
-            1607 MB total memory in use (0 MB lost due to fragmentation)
+  88,005,877,296 bytes allocated in the heap
+  97,338,035,968 bytes copied during GC
+     550,109,160 bytes maximum residency (392 sample(s))
+       7,540,568 bytes maximum slop
+             524 MB total memory in use (0 MB lost due to fragmentation)
 
                                      Tot time (elapsed)  Avg pause  Max pause
-  Gen  0      4060 colls,  4023 par   190.524s  30.964s     0.0076s    0.1490s
-  Gen  1       628 colls,   623 par   4265.310s  373.021s     0.5940s    1.3825s
+  Gen  0      3830 colls,  3773 par   179.435s  27.657s     0.0072s    0.0709s
+  Gen  1       392 colls,   387 par   758.008s  64.808s     0.1653s    0.3934s
 
-  Parallel GC work balance: 95.98% (serial 0%, perfect 100%)
+  Parallel GC work balance: 89.50% (serial 0%, perfect 100%)
 
-  TASKS: 37 (1 bound, 36 peak workers (36 total), using -N12)
+  TASKS: 38 (1 bound, 37 peak workers (37 total), using -N12)
 
   SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)
 
   INIT    time    0.000s  (  0.001s elapsed)
-  MUT     time   68.136s  ( 61.394s elapsed)
-  GC      time  4455.835s  (403.985s elapsed)
-  EXIT    time    0.000s  (  0.001s elapsed)
-  Total   time  4523.971s  (465.380s elapsed)
+  MUT     time   62.316s  ( 39.481s elapsed)
+  GC      time  937.443s  ( 92.465s elapsed)
+  EXIT    time    0.004s  (  0.004s elapsed)
+  Total   time  999.763s  (131.950s elapsed)
 
-  Alloc rate    1,450,566,564 bytes per MUT second
+  Alloc rate    1,412,255,717 bytes per MUT second
 
-  Productivity   1.5% of total user, 13.2% of total elapsed
+  Productivity   6.2% of total user, 29.9% of total elapsed
 ```
 
 ![deriving-via-heap.png](images/deriving-via-heap.png)
