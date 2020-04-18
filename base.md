@@ -88,5 +88,5 @@
   Productivity   1.5% of total user, 13.2% of total elapsed
 ```
 
-![heap.png](./images/heap.png)
+![heap.png](images/heap.png)
 
