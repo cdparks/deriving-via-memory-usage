@@ -1,31 +1,31 @@
 ## -XNoDerivingVia GC Stats
 
 ```plaintext
-  65,238,676,200 bytes allocated in the heap
-  13,349,324,608 bytes copied during GC
-   1,038,523,608 bytes maximum residency (22 sample(s))
-      10,322,728 bytes maximum slop
-             990 MB total memory in use (0 MB lost due to fragmentation)
+  63,580,560,024 bytes allocated in the heap
+  12,508,100,280 bytes copied during GC
+     406,780,976 bytes maximum residency (33 sample(s))
+       6,427,600 bytes maximum slop
+             387 MB total memory in use (0 MB lost due to fragmentation)
 
                                      Tot time (elapsed)  Avg pause  Max pause
-  Gen  0      7919 colls,  7882 par   174.418s  27.383s     0.0035s    0.1160s
-  Gen  1        22 colls,    17 par   16.442s   1.697s     0.0772s    0.2675s
+  Gen  0      9357 colls,  9302 par   151.905s  22.715s     0.0024s    0.0363s
+  Gen  1        33 colls,    28 par   14.887s   1.523s     0.0461s    0.1048s
 
-  Parallel GC work balance: 41.11% (serial 0%, perfect 100%)
+  Parallel GC work balance: 40.42% (serial 0%, perfect 100%)
 
-  TASKS: 37 (1 bound, 36 peak workers (36 total), using -N12)
+  TASKS: 38 (1 bound, 37 peak workers (37 total), using -N12)
 
   SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)
 
   INIT    time    0.000s  (  0.000s elapsed)
-  MUT     time   45.126s  ( 42.532s elapsed)
-  GC      time  190.860s  ( 29.080s elapsed)
-  EXIT    time    0.001s  (  0.008s elapsed)
-  Total   time  235.987s  ( 71.620s elapsed)
+  MUT     time   50.173s  ( 30.503s elapsed)
+  GC      time  166.792s  ( 24.238s elapsed)
+  EXIT    time    0.002s  (  0.009s elapsed)
+  Total   time  216.968s  ( 54.750s elapsed)
 
-  Alloc rate    1,445,698,412 bytes per MUT second
+  Alloc rate    1,267,222,934 bytes per MUT second
 
-  Productivity  19.1% of total user, 59.4% of total elapsed
+  Productivity  23.1% of total user, 55.7% of total elapsed
 ```
 
 ## -XNoDerivingVia GC Stats with -h
@@ -64,31 +64,31 @@
 ## -XDerivingVia GC Stats
 
 ```plaintext
-  98,804,135,064 bytes allocated in the heap
-  18,163,296,232 bytes copied during GC
-   1,484,323,576 bytes maximum residency (22 sample(s))
-      11,715,848 bytes maximum slop
-            1415 MB total memory in use (0 MB lost due to fragmentation)
+  87,996,517,096 bytes allocated in the heap
+  16,946,626,560 bytes copied during GC
+     548,909,120 bytes maximum residency (35 sample(s))
+       6,749,120 bytes maximum slop
+             523 MB total memory in use (0 MB lost due to fragmentation)
 
                                      Tot time (elapsed)  Avg pause  Max pause
-  Gen  0     10414 colls, 10377 par   244.454s  38.339s     0.0037s    0.0930s
-  Gen  1        22 colls,    17 par   21.327s   2.186s     0.0994s    0.3817s
+  Gen  0     10606 colls, 10549 par   199.264s  30.222s     0.0028s    0.0563s
+  Gen  1        35 colls,    30 par   20.379s   2.016s     0.0576s    0.1676s
 
-  Parallel GC work balance: 40.22% (serial 0%, perfect 100%)
+  Parallel GC work balance: 40.94% (serial 0%, perfect 100%)
 
   TASKS: 38 (1 bound, 37 peak workers (37 total), using -N12)
 
   SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)
 
   INIT    time    0.000s  (  0.000s elapsed)
-  MUT     time   63.641s  ( 60.166s elapsed)
-  GC      time  265.780s  ( 40.525s elapsed)
-  EXIT    time    0.002s  (  0.009s elapsed)
-  Total   time  329.425s  (100.700s elapsed)
+  MUT     time   64.916s  ( 40.979s elapsed)
+  GC      time  219.642s  ( 32.238s elapsed)
+  EXIT    time    0.002s  (  0.003s elapsed)
+  Total   time  284.561s  ( 73.220s elapsed)
 
-  Alloc rate    1,552,512,610 bytes per MUT second
+  Alloc rate    1,355,542,492 bytes per MUT second
 
-  Productivity  19.3% of total user, 59.7% of total elapsed
+  Productivity  22.8% of total user, 56.0% of total elapsed
 ```
 
 ## -XDerivingVia GC Stats with -h
@@ -125,125 +125,129 @@
 
 ## Time
 
-| Stage                          | -XNoDerivingVia Time | -XDerivingVia Time | Diff     |
-| ------------------------------ | -------------------- | ------------------ | -------- |
-| Parser 1                       | 0.017s               | 0.016s             | -0.001   |
-| Renamer/typechecker 1          | 3.125s               | 5.311s             | +2.186s  |
-| Desugar 1                      | 0.087s               | 0.118s             | +0.031s  |
-| Simplifier 1                   | 7.23s                | 17.244s            | +10.014s |
-| Specialise 1                   | 2.05s                | 17.417s            | +15.368s |
-| Float out 1                    | 3.266s               | 6.115s             | +2.848s  |
-| Simplifier 2                   | 32.137s              | 44.246s            | +12.109s |
-| Simplifier 3                   | 60.641s              | 80.73s             | +20.089s |
-| Simplifier 4                   | 57.245s              | 72.558s            | +15.313s |
-| Float inwards 1                | 0.0s                 | 0.0s               | +0.0s    |
-| Called arity analysis 1        | 0.0s                 | 0.0s               | +0.0s    |
-| Simplifier 5                   | 60.659s              | 83.1s              | +22.441s |
-| Demand analysis 1              | 4.949s               | 5.47s              | +0.521s  |
-| Worker Wrapper binds 1         | 0.746s               | 1.874s             | +1.128s  |
-| Simplifier 6                   | 63.48s               | 83.32s             | +19.839s |
-| Exitification transformation 1 | 0.0s                 | 0.0s               | -0.0     |
-| Float out 2                    | 18.701s              | 24.925s            | +6.224s  |
-| Common sub-expression 1        | 0.0s                 | 0.0s               | +0.0s    |
-| Float inwards 2                | 0.0s                 | 0.0s               | -0.0     |
-| Simplifier 7                   | 63.734s              | 85.234s            | +21.501s |
-| Demand analysis 2              | 3.877s               | 5.697s             | +1.82s   |
-| CoreTidy 1                     | 0.967s               | 1.818s             | +0.851s  |
-| CorePrep 1                     | 0.0s                 | 0.0s               | +0.0s    |
-| CodeGen 1                      | 2.351s               | 4.799s             | +2.448s  |
-| CorePrep 2                     | 0.0s                 | 0.0s               | +0.0s    |
-| CodeGen 2                      | 2.332s               | 5.642s             | +3.31s   |
+| Stage                          | -XNoDerivingVia Time | -XDerivingVia Time | Diff      |
+| ------------------------------ | -------------------- | ------------------ | --------- |
+| Parser 1                       | 0.08s                | 0.049s             | -0.031    |
+| Renamer/typechecker 1          | 10.086s              | 13.426s            | +3.34s    |
+| Desugar 1                      | 0.29s                | 0.269s             | -0.021    |
+| Simplifier 1                   | 10.92s               | 26.697s            | +15.776s  |
+| Specialise 1                   | 1.933s               | 4.633s             | +2.7s     |
+| Float out 1                    | 4.535s               | 6.124s             | +1.589s   |
+| Simplifier 2                   | 50.879s              | 67.449s            | +16.569s  |
+| Simplifier 3                   | 89.825s              | 121.334s           | +31.509s  |
+| Simplifier 4                   | 83.293s              | 103.967s           | +20.674s  |
+| Float inwards 1                | 0.0s                 | 0.0s               | +0.0s     |
+| Called arity analysis 1        | 0.0s                 | 0.0s               | -0.0      |
+| Simplifier 5                   | 75.801s              | 92.826s            | +17.025s  |
+| Demand analysis 1              | 10.729s              | 16.558s            | +5.828s   |
+| Worker Wrapper binds 1         | 1.377s               | 0.895s             | -0.482    |
+| Simplifier 6                   | 63.525s              | 86.922s            | +23.397s  |
+| Exitification transformation 1 | 0.0s                 | 0.0s               | +0.0s     |
+| Float out 2                    | 20.235s              | 27.78s             | +7.545s   |
+| Common sub-expression 1        | 0.0s                 | 0.0s               | -0.0      |
+| Float inwards 2                | 0.0s                 | 0.0s               | -0.0      |
+| Simplifier 7                   | 81.041s              | 102.338s           | +21.297s  |
+| Demand analysis 2              | 8.95s                | 15.716s            | +6.766s   |
+| CoreTidy 1                     | 1.021s               | 1.753s             | +0.733s   |
+| CorePrep 1                     | 0.0s                 | 0.0s               | -0.0      |
+| CodeGen 1                      | 7.509s               | 13.68s             | +6.172s   |
+| CorePrep 2                     | 0.0s                 | 0.0s               | -0.0      |
+| CodeGen 2                      | 10.22s               | 13.238s            | +3.018s   |
+| Total                          | 532.25s              | 715.652s           | +183.402s |
 
 ## Time, sorted by diff
 
-| Stage                          | -XNoDerivingVia Time | -XDerivingVia Time | Diff     |
-| ------------------------------ | -------------------- | ------------------ | -------- |
-| Simplifier 5                   | 60.659s              | 83.1s              | +22.441s |
-| Simplifier 7                   | 63.734s              | 85.234s            | +21.501s |
-| Simplifier 3                   | 60.641s              | 80.73s             | +20.089s |
-| Simplifier 6                   | 63.48s               | 83.32s             | +19.839s |
-| Specialise 1                   | 2.05s                | 17.417s            | +15.368s |
-| Simplifier 4                   | 57.245s              | 72.558s            | +15.313s |
-| Simplifier 2                   | 32.137s              | 44.246s            | +12.109s |
-| Simplifier 1                   | 7.23s                | 17.244s            | +10.014s |
-| Float out 2                    | 18.701s              | 24.925s            | +6.224s  |
-| CodeGen 2                      | 2.332s               | 5.642s             | +3.31s   |
-| Float out 1                    | 3.266s               | 6.115s             | +2.848s  |
-| CodeGen 1                      | 2.351s               | 4.799s             | +2.448s  |
-| Renamer/typechecker 1          | 3.125s               | 5.311s             | +2.186s  |
-| Demand analysis 2              | 3.877s               | 5.697s             | +1.82s   |
-| Worker Wrapper binds 1         | 0.746s               | 1.874s             | +1.128s  |
-| CoreTidy 1                     | 0.967s               | 1.818s             | +0.851s  |
-| Demand analysis 1              | 4.949s               | 5.47s              | +0.521s  |
-| Desugar 1                      | 0.087s               | 0.118s             | +0.031s  |
-| Float inwards 1                | 0.0s                 | 0.0s               | +0.0s    |
-| Called arity analysis 1        | 0.0s                 | 0.0s               | +0.0s    |
-| CorePrep 1                     | 0.0s                 | 0.0s               | +0.0s    |
-| CorePrep 2                     | 0.0s                 | 0.0s               | +0.0s    |
-| Common sub-expression 1        | 0.0s                 | 0.0s               | +0.0s    |
-| Float inwards 2                | 0.0s                 | 0.0s               | -0.0     |
-| Exitification transformation 1 | 0.0s                 | 0.0s               | -0.0     |
-| Parser 1                       | 0.017s               | 0.016s             | -0.001   |
+| Stage                          | -XNoDerivingVia Time | -XDerivingVia Time | Diff      |
+| ------------------------------ | -------------------- | ------------------ | --------- |
+| Total                          | 532.25s              | 715.652s           | +183.402s |
+| Simplifier 3                   | 89.825s              | 121.334s           | +31.509s  |
+| Simplifier 6                   | 63.525s              | 86.922s            | +23.397s  |
+| Simplifier 7                   | 81.041s              | 102.338s           | +21.297s  |
+| Simplifier 4                   | 83.293s              | 103.967s           | +20.674s  |
+| Simplifier 5                   | 75.801s              | 92.826s            | +17.025s  |
+| Simplifier 2                   | 50.879s              | 67.449s            | +16.569s  |
+| Simplifier 1                   | 10.92s               | 26.697s            | +15.776s  |
+| Float out 2                    | 20.235s              | 27.78s             | +7.545s   |
+| Demand analysis 2              | 8.95s                | 15.716s            | +6.766s   |
+| CodeGen 1                      | 7.509s               | 13.68s             | +6.172s   |
+| Demand analysis 1              | 10.729s              | 16.558s            | +5.828s   |
+| Renamer/typechecker 1          | 10.086s              | 13.426s            | +3.34s    |
+| CodeGen 2                      | 10.22s               | 13.238s            | +3.018s   |
+| Specialise 1                   | 1.933s               | 4.633s             | +2.7s     |
+| Float out 1                    | 4.535s               | 6.124s             | +1.589s   |
+| CoreTidy 1                     | 1.021s               | 1.753s             | +0.733s   |
+| Exitification transformation 1 | 0.0s                 | 0.0s               | +0.0s     |
+| Float inwards 1                | 0.0s                 | 0.0s               | +0.0s     |
+| Common sub-expression 1        | 0.0s                 | 0.0s               | -0.0      |
+| Float inwards 2                | 0.0s                 | 0.0s               | -0.0      |
+| Called arity analysis 1        | 0.0s                 | 0.0s               | -0.0      |
+| CorePrep 1                     | 0.0s                 | 0.0s               | -0.0      |
+| CorePrep 2                     | 0.0s                 | 0.0s               | -0.0      |
+| Desugar 1                      | 0.29s                | 0.269s             | -0.021    |
+| Parser 1                       | 0.08s                | 0.049s             | -0.031    |
+| Worker Wrapper binds 1         | 1.377s               | 0.895s             | -0.482    |
 
 ## Allocation
 
-| Stage                          | -XNoDerivingVia Allocation | -XDerivingVia Allocation | Diff         |
-| ------------------------------ | -------------------------- | ------------------------ | ------------ |
-| Parser 1                       | 8.557 MB                   | 7.957 MB                 | -0.599       |
-| Renamer/typechecker 1          | 460.724 MB                 | 1094.351 MB              | +633.627 MB  |
-| Desugar 1                      | 9.7 MB                     | 12.91 MB                 | +3.21 MB     |
-| Simplifier 1                   | 1218.089 MB                | 2997.103 MB              | +1779.013 MB |
-| Specialise 1                   | 1026.858 MB                | 9005.987 MB              | +7979.129 MB |
-| Float out 1                    | 301.863 MB                 | 473.112 MB               | +171.249 MB  |
-| Simplifier 2                   | 5030.54 MB                 | 7454.576 MB              | +2424.036 MB |
-| Simplifier 3                   | 9911.664 MB                | 13496.51 MB              | +3584.845 MB |
-| Simplifier 4                   | 8377.837 MB                | 11027.063 MB             | +2649.226 MB |
-| Float inwards 1                | 0.013 MB                   | 0.013 MB                 | 0.0          |
-| Called arity analysis 1        | 0.014 MB                   | 0.014 MB                 | 0.0          |
-| Simplifier 5                   | 8481.667 MB                | 11402.184 MB             | +2920.517 MB |
-| Demand analysis 1              | 1555.026 MB                | 2103.446 MB              | +548.42 MB   |
-| Worker Wrapper binds 1         | 42.202 MB                  | 62.274 MB                | +20.072 MB   |
-| Simplifier 6                   | 8916.586 MB                | 11586.541 MB             | +2669.955 MB |
-| Exitification transformation 1 | 0.014 MB                   | 0.014 MB                 | 0.0          |
-| Float out 2                    | 1565.291 MB                | 2197.848 MB              | +632.557 MB  |
-| Common sub-expression 1        | 0.013 MB                   | 0.013 MB                 | 0.0          |
-| Float inwards 2                | 0.013 MB                   | 0.013 MB                 | 0.0          |
-| Simplifier 7                   | 8806.673 MB                | 11804.135 MB             | +2997.462 MB |
-| Demand analysis 2              | 1436.256 MB                | 1989.824 MB              | +553.568 MB  |
-| CoreTidy 1                     | 153.302 MB                 | 208.19 MB                | +54.888 MB   |
-| CorePrep 1                     | 0.011 MB                   | 0.011 MB                 | 0.0          |
-| CodeGen 1                      | 1354.115 MB                | 2218.74 MB               | +864.625 MB  |
-| CorePrep 2                     | 0.011 MB                   | 0.011 MB                 | 0.0          |
-| CodeGen 2                      | 1420.486 MB                | 2328.31 MB               | +907.824 MB  |
+| Stage                          | -XNoDerivingVia Allocation | -XDerivingVia Allocation | Diff          |
+| ------------------------------ | -------------------------- | ------------------------ | ------------- |
+| Parser 1                       | 35.051 MB                  | 32.948 MB                | -2.103        |
+| Renamer/typechecker 1          | 698.728 MB                 | 1330.049 MB              | +631.321 MB   |
+| Desugar 1                      | 22.449 MB                  | 25.76 MB                 | +3.312 MB     |
+| Simplifier 1                   | 1254.692 MB                | 3028.437 MB              | +1773.745 MB  |
+| Specialise 1                   | 196.157 MB                 | 1009.708 MB              | +813.551 MB   |
+| Float out 1                    | 342.7 MB                   | 505.041 MB               | +162.341 MB   |
+| Simplifier 2                   | 5323.286 MB                | 7422.371 MB              | +2099.085 MB  |
+| Simplifier 3                   | 10241.209 MB               | 13633.87 MB              | +3392.661 MB  |
+| Simplifier 4                   | 8698.237 MB                | 11112.988 MB             | +2414.752 MB  |
+| Float inwards 1                | 0.162 MB                   | 0.162 MB                 | 0.0           |
+| Called arity analysis 1        | 0.176 MB                   | 0.176 MB                 | 0.0           |
+| Simplifier 5                   | 7963.713 MB                | 10345.508 MB             | +2381.795 MB  |
+| Demand analysis 1              | 1643.384 MB                | 2198.509 MB              | +555.125 MB   |
+| Worker Wrapper binds 1         | 43.757 MB                  | 57.143 MB                | +13.386 MB    |
+| Simplifier 6                   | 7199.82 MB                 | 9320.079 MB              | +2120.259 MB  |
+| Exitification transformation 1 | 0.171 MB                   | 0.171 MB                 | 0.0           |
+| Float out 2                    | 1612.035 MB                | 2223.416 MB              | +611.382 MB   |
+| Common sub-expression 1        | 0.163 MB                   | 0.163 MB                 | 0.0           |
+| Float inwards 2                | 0.162 MB                   | 0.162 MB                 | 0.0           |
+| Simplifier 7                   | 8982.909 MB                | 11950.616 MB             | +2967.707 MB  |
+| Demand analysis 2              | 1486.519 MB                | 2047.257 MB              | +560.738 MB   |
+| CoreTidy 1                     | 168.548 MB                 | 229.185 MB               | +60.637 MB    |
+| CorePrep 1                     | 0.142 MB                   | 0.142 MB                 | 0.0           |
+| CodeGen 1                      | 1583.906 MB                | 2624.815 MB              | +1040.909 MB  |
+| CorePrep 2                     | 0.142 MB                   | 0.142 MB                 | 0.0           |
+| CodeGen 2                      | 1650.152 MB                | 2769.932 MB              | +1119.779 MB  |
+| Total                          | 59148.37 MB                | 81868.75 MB              | +22720.381 MB |
 
 ## Allocation, sorted by diff
 
-| Stage                          | -XNoDerivingVia Allocation | -XDerivingVia Allocation | Diff         |
-| ------------------------------ | -------------------------- | ------------------------ | ------------ |
-| Specialise 1                   | 1026.858 MB                | 9005.987 MB              | +7979.129 MB |
-| Simplifier 3                   | 9911.664 MB                | 13496.51 MB              | +3584.845 MB |
-| Simplifier 7                   | 8806.673 MB                | 11804.135 MB             | +2997.462 MB |
-| Simplifier 5                   | 8481.667 MB                | 11402.184 MB             | +2920.517 MB |
-| Simplifier 6                   | 8916.586 MB                | 11586.541 MB             | +2669.955 MB |
-| Simplifier 4                   | 8377.837 MB                | 11027.063 MB             | +2649.226 MB |
-| Simplifier 2                   | 5030.54 MB                 | 7454.576 MB              | +2424.036 MB |
-| Simplifier 1                   | 1218.089 MB                | 2997.103 MB              | +1779.013 MB |
-| CodeGen 2                      | 1420.486 MB                | 2328.31 MB               | +907.824 MB  |
-| CodeGen 1                      | 1354.115 MB                | 2218.74 MB               | +864.625 MB  |
-| Renamer/typechecker 1          | 460.724 MB                 | 1094.351 MB              | +633.627 MB  |
-| Float out 2                    | 1565.291 MB                | 2197.848 MB              | +632.557 MB  |
-| Demand analysis 2              | 1436.256 MB                | 1989.824 MB              | +553.568 MB  |
-| Demand analysis 1              | 1555.026 MB                | 2103.446 MB              | +548.42 MB   |
-| Float out 1                    | 301.863 MB                 | 473.112 MB               | +171.249 MB  |
-| CoreTidy 1                     | 153.302 MB                 | 208.19 MB                | +54.888 MB   |
-| Worker Wrapper binds 1         | 42.202 MB                  | 62.274 MB                | +20.072 MB   |
-| Desugar 1                      | 9.7 MB                     | 12.91 MB                 | +3.21 MB     |
-| Float inwards 1                | 0.013 MB                   | 0.013 MB                 | 0.0          |
-| Called arity analysis 1        | 0.014 MB                   | 0.014 MB                 | 0.0          |
-| Exitification transformation 1 | 0.014 MB                   | 0.014 MB                 | 0.0          |
-| Common sub-expression 1        | 0.013 MB                   | 0.013 MB                 | 0.0          |
-| Float inwards 2                | 0.013 MB                   | 0.013 MB                 | 0.0          |
-| CorePrep 1                     | 0.011 MB                   | 0.011 MB                 | 0.0          |
-| CorePrep 2                     | 0.011 MB                   | 0.011 MB                 | 0.0          |
-| Parser 1                       | 8.557 MB                   | 7.957 MB                 | -0.599       |
+| Stage                          | -XNoDerivingVia Allocation | -XDerivingVia Allocation | Diff          |
+| ------------------------------ | -------------------------- | ------------------------ | ------------- |
+| Total                          | 59148.37 MB                | 81868.75 MB              | +22720.381 MB |
+| Simplifier 3                   | 10241.209 MB               | 13633.87 MB              | +3392.661 MB  |
+| Simplifier 7                   | 8982.909 MB                | 11950.616 MB             | +2967.707 MB  |
+| Simplifier 4                   | 8698.237 MB                | 11112.988 MB             | +2414.752 MB  |
+| Simplifier 5                   | 7963.713 MB                | 10345.508 MB             | +2381.795 MB  |
+| Simplifier 6                   | 7199.82 MB                 | 9320.079 MB              | +2120.259 MB  |
+| Simplifier 2                   | 5323.286 MB                | 7422.371 MB              | +2099.085 MB  |
+| Simplifier 1                   | 1254.692 MB                | 3028.437 MB              | +1773.745 MB  |
+| CodeGen 2                      | 1650.152 MB                | 2769.932 MB              | +1119.779 MB  |
+| CodeGen 1                      | 1583.906 MB                | 2624.815 MB              | +1040.909 MB  |
+| Specialise 1                   | 196.157 MB                 | 1009.708 MB              | +813.551 MB   |
+| Renamer/typechecker 1          | 698.728 MB                 | 1330.049 MB              | +631.321 MB   |
+| Float out 2                    | 1612.035 MB                | 2223.416 MB              | +611.382 MB   |
+| Demand analysis 2              | 1486.519 MB                | 2047.257 MB              | +560.738 MB   |
+| Demand analysis 1              | 1643.384 MB                | 2198.509 MB              | +555.125 MB   |
+| Float out 1                    | 342.7 MB                   | 505.041 MB               | +162.341 MB   |
+| CoreTidy 1                     | 168.548 MB                 | 229.185 MB               | +60.637 MB    |
+| Worker Wrapper binds 1         | 43.757 MB                  | 57.143 MB                | +13.386 MB    |
+| Desugar 1                      | 22.449 MB                  | 25.76 MB                 | +3.312 MB     |
+| Float inwards 1                | 0.162 MB                   | 0.162 MB                 | 0.0           |
+| Called arity analysis 1        | 0.176 MB                   | 0.176 MB                 | 0.0           |
+| Exitification transformation 1 | 0.171 MB                   | 0.171 MB                 | 0.0           |
+| Common sub-expression 1        | 0.163 MB                   | 0.163 MB                 | 0.0           |
+| Float inwards 2                | 0.162 MB                   | 0.162 MB                 | 0.0           |
+| CorePrep 1                     | 0.142 MB                   | 0.142 MB                 | 0.0           |
+| CorePrep 2                     | 0.142 MB                   | 0.142 MB                 | 0.0           |
+| Parser 1                       | 35.051 MB                  | 32.948 MB                | -2.103        |
 

@@ -77,6 +77,73 @@ def process(filename):
 
     return stages
 
+def merge(xs, ys):
+    out = []
+    empty = dict(time=0, alloc=0)
+
+    names = {stage['name'] for stage in xs}
+
+    skipped = []
+    pool = list(reversed(ys))
+
+    for x in xs:
+        name = x['name']
+        y = empty
+
+        while pool:
+            candidate = pool.pop()
+
+            # Common case, but some modules skip stages
+            if candidate['name'] == name:
+                y = candidate
+                break
+            # We'll see this one later
+            elif candidate['name'] in names:
+                skipped.append(candidate)
+            # xs doesn't have this name at all
+            else:
+                out.append(candidate)
+
+        while skipped:
+            pool.append(skipped.pop())
+
+        out.append(dict(
+            name=name,
+            time=x['time'] + y['time'],
+            alloc=x['alloc'] + y['alloc']
+        ))
+
+    return out
+
+def mergeAll1(xs):
+    g = iter(xs)
+    try:
+        x = next(g)
+    except StopIteration:
+        raise Exception('mergeAll1 expects at least one element')
+    for y in g:
+        x = merge(x, y)
+    return x
+
+
+def addTotal(xs):
+    time = 0
+    alloc = 0
+    for x in xs:
+        time += x['time']
+        alloc += x['alloc']
+    return list(xs) + [dict(name='Total', time=time, alloc=alloc)]
+
+def mergeAll1(xs):
+    g = iter(xs)
+    try:
+        x = next(g)
+    except StopIteration:
+        raise Exception('mergeAll1 expects at least one element')
+    for y in g:
+        x = merge(x, y)
+    return x
+
 def compare(noDerivingVia, derivingVia):
     rows = []
     derivingViaMap = {
@@ -118,11 +185,11 @@ def compare(noDerivingVia, derivingVia):
 
     return rows
 
-def findTimingsFile(workdir):
+def findTimings(workdir):
     for root, _, filenames in os.walk(workdir):
         for filename in filenames:
-            if filename == 'Instances.dump-timings':
-                return os.path.join(root, filename)
+            if filename.endswith('.dump-timings'):
+                yield os.path.join(root, filename)
 
 def table(**kwargs):
     rows = kwargs.pop('rows')
@@ -182,8 +249,18 @@ if __name__ == '__main__':
         sys.exit(2)
 
     noDerivingViaWorkDir, derivingViaWorkDir = args
-    noDerivingViaTimings = process(findTimingsFile(noDerivingViaWorkDir))
-    derivingViaTimings = process(findTimingsFile(derivingViaWorkDir))
+
+    noDerivingViaTimings = addTotal(mergeAll1(
+        process(path)
+        for path in
+        findTimings(noDerivingViaWorkDir)
+    ))
+
+    derivingViaTimings = addTotal(mergeAll1(
+        process(path)
+        for path in
+        findTimings(derivingViaWorkDir)
+    ))
 
     rows = compare(noDerivingViaTimings, derivingViaTimings)
 
