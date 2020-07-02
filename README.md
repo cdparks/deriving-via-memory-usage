@@ -4,6 +4,8 @@
 of explicit instances using `Generic`. I'm not sure if this is just the
 cost of using `-XDerivinVia`, or if there's something strange happening.
 
+Filed as **[`ghc` Issue 18077](https://gitlab.haskell.org/ghc/ghc/-/issues/18077)**.
+
 ## -XNoDerivingVia GC Stats
 
 ```plaintext
